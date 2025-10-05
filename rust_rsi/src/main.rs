@@ -60,7 +60,7 @@ async fn main() {
 
     let mut stream = consumer.stream();
 
-    println!("🔄 RSI service running...");
+    println!(" RSI service running...");
 
     while let Some(message) = stream.next().await {
         if let Ok(msg) = message {
@@ -81,7 +81,7 @@ async fn main() {
 
                         let record = FutureRecord::to("rsi-data").payload(&json);
                         producer.send(record, 0).await.unwrap();
-                        println!("📤 Sent RSI for {}: {:.2}", trade.token_address, rsi);
+                        println!(" Sent RSI for {}: {:.2}", trade.token_address, rsi);
                     }
                 }
             }

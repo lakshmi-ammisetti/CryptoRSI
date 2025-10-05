@@ -7,7 +7,7 @@ const producer = kafka.producer();
 
 async function run() {
   await producer.connect();
-  console.log("✅ Kafka producer connected");
+  console.log(" Kafka producer connected");
 
   fs.createReadStream("..//trades_data.csv")
     .pipe(csv())
@@ -18,7 +18,7 @@ async function run() {
       });
     })
     .on("end", () => {
-      console.log("✅ CSV ingestion complete");
+      console.log(" CSV ingestion complete");
       process.exit(0);
     });
 }

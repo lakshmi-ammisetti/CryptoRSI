@@ -17,7 +17,7 @@ let clients = [];
 
 // SSE endpoint
 app.get("/events", (req, res) => {
-  console.log("📡 New SSE client connected");
+  console.log(" New SSE client connected");
 
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
@@ -28,7 +28,7 @@ app.get("/events", (req, res) => {
   clients.push(res);
 
   req.on("close", () => {
-    console.log("❌ SSE client disconnected");
+    console.log(" SSE client disconnected");
     clients = clients.filter((c) => c !== res);
   });
 });
@@ -44,7 +44,7 @@ app.get("/health", (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`✅ SSE server listening on http://localhost:${PORT}`);
+  console.log(`SSE server listening on http://localhost:${PORT}`);
   console.log(`   Test it: curl http://localhost:${PORT}/health`);
   console.log(`   Or visit in browser: http://localhost:${PORT}/health`);
   connectKafka();
@@ -53,7 +53,7 @@ app.listen(PORT, () => {
 // Connect Kafka and broadcast messages
 async function connectKafka() {
   try {
-    console.log("🔄 Connecting to Kafka...");
+    console.log("Connecting to Kafka...");
 
     const kafka = new Kafka({
       brokers: ["localhost:9092"],
@@ -63,10 +63,10 @@ async function connectKafka() {
 
     const consumer = kafka.consumer({ groupId: "sse-group" });
     await consumer.connect();
-    console.log("✅ Kafka connected");
+    console.log(" Kafka connected");
 
     await consumer.subscribe({ topic: "rsi-data", fromBeginning: false });
-    console.log("✅ Subscribed to rsi-data topic");
+    console.log("Subscribed to rsi-data topic");
 
     await consumer.run({
       eachMessage: async ({ message }) => {
@@ -87,7 +87,7 @@ async function connectKafka() {
             res.write(`data: ${payload}\n\n`);
             res.flush?.(); // optional, ensures immediate flush
           } catch (err) {
-            console.error("❌ Error writing to client:", err.message);
+            console.error(" Error writing to client:", err.message);
           }
         });
 
@@ -96,8 +96,8 @@ async function connectKafka() {
     });
 
   } catch (error) {
-    console.error("❌ Kafka connection failed:", error.message);
-    console.log("⚠️ SSE server running, but Kafka not connected.");
+    console.error(" Kafka connection failed:", error.message);
+    console.log(" SSE server running, but Kafka not connected.");
     console.log("   Make sure Kafka is running: docker-compose up -d");
   }
 }

@@ -6,7 +6,7 @@ const producer = kafka.producer();
 async function sendTestData() {
   try {
     await producer.connect();
-    console.log('✅ Producer connected to Kafka');
+    console.log(' Producer connected to Kafka');
 
     let counter = 0;
     
@@ -30,7 +30,7 @@ async function sendTestData() {
     }, 2000); // Send every 2 seconds
 
   } catch (error) {
-    console.error('❌ Producer error:', error);
+    console.error(' Producer error:', error);
     process.exit(1);
   }
 }
