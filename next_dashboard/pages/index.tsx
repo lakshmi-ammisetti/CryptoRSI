@@ -160,7 +160,7 @@ export default function Dashboard() {
   return (
     <div style={{ padding: 40, fontFamily: "system-ui", maxWidth: 1200, margin: "0 auto" }}>
       <h1 style={{ marginBottom: 10 }}>CryptoRSI Dashboard</h1>
-      <p style={{ color: "#666", marginBottom: 30 }}>Real-time RSI monitoring via Kafka + SSE</p>
+      <p style={{ color: "#666", marginBottom: 30 }}>Real-time RSI monitoring via redpanda + SSE</p>
       
       {/* Status Bar */}
       <div style={{ 
